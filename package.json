@@ -1,0 +1,37 @@
+{
+  "name": "sora-lite",
+  "version": "1.0.0",
+  "description": "Server‑side image compression using MozJPEG & PNGQuant (Inspired by Squoosh).",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Hamza Zogarh <me@hamzazogarh.com> (https://hz-lab.ma)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "archiver": "7.0.1",
+    "cors": "^2.8.5",
+    "express": "5.1.0",
+    "fast-glob": "3.3.3",
+    "helmet": "8.1.0",
+    "https": "^1.0.0",
+    "imagemin": "9.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "multer": "2.0.2",
+    "node-cron": "4.2.1",
+    "p-limit": "7.2.0",
+    "winston": "3.18.3"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.11"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.16"
+  }
+}

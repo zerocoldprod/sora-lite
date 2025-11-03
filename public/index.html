@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black-50 dark:bg-black-900">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Compressor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS HEAD -->  
+  <link rel="stylesheet" href="/css/image-compare-viewer.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- JS HEAD -->  
+  <script src="/js/image-compare-viewer.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script nonce="random123">
+    tailwind.config = {
+      darkMode: 'media',
+      theme: {
+        extend: {}
+      }
+    };
+  </script>
+</head>
+
+<body class="font-sans text-gray-800 dark:text-gray-200">
+  <main class="max-w-4xl mx-auto p-4 main-modal">
+
+    <!-- Hero section -->
+    <section class="text-center mb-10">
+      <h1 class="text-4xl font-bold mb-2">Sora Lite - Image Compressor</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        Upload JPEG or PNG files and get them compressed instantly.
+      </p>
+    </section>
+
+    <!-- Drag‑and‑drop upload zone -->
+    <section id="dropZone"
+             class="border-2 border-dashed border-neutral-300 dark:border-neutral-600 rounded-lg p-6 text-center bg-white dark:bg-neutral-800">
+      <input type="file"
+             id="fileInput"
+             multiple
+             accept=".jpg,.jpeg,.png"
+             class="hidden" />
+      <label for="fileInput"
+             class="cursor-pointer inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
+        Choose Images
+      </label>
+
+      <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        or drag &amp; drop files here
+      </p>
+    </section>
+
+    <!-- Results / preview area -->
+    <section id="results"
+             class="mt-8 space-y-6 hidden">
+      <h2 class="text-2xl font-semibold">Your files</h2>
+      <ul id="fileList" class="space-y-4"></ul>
+
+      <div id="zipSection"
+           class="text-center hidden">
+        <a id="zipLink"
+           href="#"
+           class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded">
+          Download All as ZIP
+        </a>
+      </div>
+    </section>
+
+    <small class="copyright">
+      &copy; 2025 Sora Lite - Image Compressor by <a href="https://hz-lab.ma" target="_blank">HZ-LAB.MA</a>
+    </small>
+  </main>
+
+  <!-- JS FOOTER -->  
+  <script src="/js/app.js"></script>
+</body>
+</html>

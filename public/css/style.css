@@ -1,0 +1,78 @@
+html{
+    background-color: #0e0e0e;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.fade-enter {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s ease, transform .3s ease;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btns-container {
+    display: flex;
+    gap: 0.75rem;
+}
+
+button#closeModalBtn {
+    font-size: 2.5rem;
+}
+
+.details-infos {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    display: flex;
+    font-size: 1.75rem;
+    font-weight: 700;
+    justify-content: space-between;
+    padding: 1.5rem 2.5rem;
+    text-shadow: 0 0 18px #000;
+    z-index: 5;
+}
+
+.details-infos small {
+    display: block;
+    font-weight: 500;
+}
+
+.details-infos>p:first-child {
+    text-align: left;
+}
+
+.details-infos>p:last-child {
+    text-align: right;
+}
+
+main.main-modal {
+    position: relative;
+    width: 100%;
+}
+
+section#dropZone {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b1b1b;
+}
+
+small.copyright {
+    margin: 1.5rem 0;
+    display: block;
+    text-align: center;
+}
