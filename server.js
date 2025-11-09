@@ -96,6 +96,7 @@ app.use(
         scriptSrc: [
           "'self'",
           'https://cdn.tailwindcss.com',
+          'https://static.cloudflareinsights.com',
           "'unsafe-inline'",
         ],
         styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
@@ -107,6 +108,7 @@ app.use(
     },
   })
 );
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
