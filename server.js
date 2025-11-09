@@ -21,11 +21,13 @@ const http = require('http');
 
 const PORT = process.env.PORT || 7841;
 const PORT_SSL = process.env.PORT_SSL || 7840; // separate env var for clarity
+const CLEANUP_ENABLED = true;
+const CLEANUP_AFTER_MS = 5 * 60 * 1000; // 5 minutes
+const MAX_TOTAL_SIZE = 100 * 1024 * 1024; // 100 MiB
+const MAX_FILES = 20;
+
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 const OPTIMIZED_DIR = path.join(__dirname, 'optimized');
-const MAX_FILES = 20;
-const MAX_TOTAL_SIZE = 100 * 1024 * 1024; // 100 MiB
-const CLEANUP_AFTER_MS = 5 * 60 * 1000; // 5 minutes
 
 // -----------------------------------------------------------------------------
 // Winston logger
@@ -225,28 +227,35 @@ app.get('/upload/:filename', async (req, res) => {
 // -----------------------------------------------------------------------------
 // Cleanup job – runs every minute, removes files older than CLEANUP_AFTER_MS
 // -----------------------------------------------------------------------------
-cron.schedule('* * * * *', async () => {
-  const now = Date.now();
 
-  async function cleanFolder(folder) {
-    try {
-      const entries = await fs.readdir(folder, { withFileTypes: true });
-      for (const entry of entries) {
-        if (!entry.isFile()) continue;
-        const filePath = path.join(folder, entry.name);
-        const stats = await fs.stat(filePath);
-        if (now - stats.mtimeMs > CLEANUP_AFTER_MS) {
-          await safeUnlink(filePath);
-          logger.info(`Cleaned up ${filePath}`);
+if (CLEANUP_ENABLED) {
+  logger.info('Cleanup job is enabled');
+
+  cron.schedule('* * * * *', async () => {
+    const now = Date.now();
+
+    async function cleanFolder(folder) {
+      try {
+        const entries = await fs.readdir(folder, { withFileTypes: true });
+        for (const entry of entries) {
+          if (!entry.isFile()) continue;
+          const filePath = path.join(folder, entry.name);
+          const stats = await fs.stat(filePath);
+          if (now - stats.mtimeMs > CLEANUP_AFTER_MS) {
+            await safeUnlink(filePath);
+            logger.info(`Cleaned up ${filePath}`);
+          }
         }
+      } catch (e) {
+        logger.warn(`Cleanup error for ${folder}: ${e.message}`);
       }
-    } catch (e) {
-      logger.warn(`Cleanup error for ${folder}: ${e.message}`);
     }
-  }
 
-  await Promise.all([cleanFolder(UPLOAD_DIR), cleanFolder(OPTIMIZED_DIR)]);
-});
+    await Promise.all([cleanFolder(UPLOAD_DIR), cleanFolder(OPTIMIZED_DIR)]);
+  });
+} else {
+  logger.info('Cleanup job is disabled');
+}
 
 // -----------------------------------------------------------------------------
 // Global error handler (fallback)

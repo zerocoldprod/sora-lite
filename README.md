@@ -1,3 +1,5 @@
+![DOOIT](public/img/screen.png)
+
 # Sora Lite : Image‑Compress‑WebApp
 
 A tiny, production‑ready image‑compression service (inspired by Squoosh.app) that
@@ -15,15 +17,39 @@ processes JPEGs with **mozjpeg** and PNGs with **pngquant** on the server side.
 - Responsive UI built with Tailwind CSS
 - Basic security headers (Helmet) and request logging (Winston)
 
+![Preview 1](./public/img/preview.png)
+
 ## Prerequisites
 
 - **Node.js** ≥ 18 (LTS)
-- npm (bundled with Node)
+- **npm** (bundled with Node)
+
 
 ## Installation
 
 ```bash
-git clone <repo‑url>
+git clone https://github.com/zerocoldprod/sora-lite
 cd sora-lite
 npm install
+```
+
+## Usage
+
+```bash
 npm start
+```
+
+This will start the server on `http://localhost:7841` and `https://localhost:7840`. 
+You can access the UI by navigating to `http://localhost:7841` in your web browser.
+
+## Configuration
+
+
+```javascript
+const PORT = process.env.PORT || 7841;
+const PORT_SSL = process.env.PORT_SSL || 7840; // separate env var for clarity
+const CLEANUP_ENABLED = true;
+const CLEANUP_AFTER_MS = 5 * 60 * 1000; // 5 minutes
+const MAX_TOTAL_SIZE = 100 * 1024 * 1024; // 100 MiB
+const MAX_FILES = 20;
+```
